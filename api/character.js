@@ -7,18 +7,6 @@ const router = express.Router();
 router.get('/character', async (req, res) => {
   const characterList = await models.Character.find().populate('camp');
 
-  // const campIdList = characterList.map((item) => item.camp).filter((item) => !!item);
-
-  // const campList = await models.Camp.find({ _id: { $in: campIdList } }).populate('camp');
-
-  // const formattedCharacterList = characterList.map((character) => ({
-  //   ...character,
-  //   // camp: campIdList.find((item) => item._id === character.camp) || {},
-  // }));
-
-  // console.log(characterList.map((item) => ({ ...item })));
-  // console.log('campList is', campList);
-
   res.json(characterList);
 });
 
@@ -27,22 +15,37 @@ router.post('/character', async (req, res, next) => {
 
   try {
     await character.save();
-    res.send(req.body);
+    return res.send(req.body);
   } catch (err) {
-    next(err);
+    return next(err);
   }
 });
 
-router.put('/character/:id', (req, res) => res.send('update Character'));
+router.put('/character/:id', (req, res, next) => {
+  models.Character.updateOne({ _id: req.params.id }, req.body, (err) => {
+    if (!err) {
+      return res.send('success');
+    }
+    return next(err);
+  });
+});
 
-router.get('/character/:id', (req, res) => res.send('get Character'));
+router.get('/character/:id', (req, res, next) => {
+  models.Character.findById(req.params.id, (err, character) => {
+    if (!err) {
+      return res.json(character);
+    }
+
+    return next(err);
+  });
+});
 
 router.delete('/character/:id', (req, res, next) => {
   models.Character.deleteOne({ _id: req.params.id }, (err) => {
     if (!err) {
-      res.send('success');
+      return res.send('success');
     }
-    next(err);
+    return next(err);
   });
 });
 

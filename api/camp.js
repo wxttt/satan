@@ -18,8 +18,26 @@ router.post('/camp', async (req, res) => {
   res.send(req.body);
 });
 
-router.put('/camp/:id', (req, res) => res.send('update camp'));
+router.delete('/camp/:id', (req, res, next) => {
+  models.Camp.deleteOne({ _id: req.params.id }, (err) => {
+    if (!err) {
+      res.send('success');
+    }
+    next(err);
+  });
+});
 
-router.get('/camp/:id', (req, res) => res.send('get camp'));
+router.put('/camp/:id', (req, res, next) => {
+  models.Camp.updateOne({ _id: req.params.id }, req.body, (err) => {
+    if (!err) {
+      res.send('success');
+    }
+    next(err);
+  });
+});
+
+// router.get('/camp/:id', (req, res) => {
+
+// });
 
 module.exports = router;

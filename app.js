@@ -21,21 +21,23 @@ app.use('/', indexRouter);
 app.use('/api', api.character);
 app.use('/api', api.characterShip);
 app.use('/api', api.characterShipLink);
+app.use('/api', api.user);
 app.use('/api', api.camp);
 
 app.use((req, res, next) => {
+  console.log('======== reach 404 =======')
   next(createError(404));
 });
 
-app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-  console.log('error', err);
-  // render the error page
-  res.status(err.status || 500);
-  res.render('err');
-});
+// app.use((err, req, res, next) => {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+//   console.log('error', err);
+//   // render the error page
+//   res.status(err.status || 500);
+//   res.render('err');
+// });
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
