@@ -2,12 +2,14 @@ const express = require('express');
 
 const { models } = require('../model');
 
+const { wrapRes } = require('../utils/request');
+
 const router = express.Router();
 
 router.get('/character-ship', async (req, res) => {
   const characterShipList = await models.CharacterShip.find();
 
-  return res.json(characterShipList);
+  return res.json(wrapRes(characterShipList));
 });
 
 router.post('/character-ship', async (req, res) => {

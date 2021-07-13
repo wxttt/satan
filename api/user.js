@@ -10,6 +10,8 @@ const { models } = require('../model');
 
 const auth = require('../middleware/auth');
 
+const { wrapRes } = require('../utils/request');
+
 const router = express.Router();
 
 router.get('/user', async (req, res) => {
@@ -59,10 +61,10 @@ router.post('/user/login', async (req, res) => {
     id: String(user._id), 
   }, AUTH_SECRET);
 
-  return res.send({
-    user,
+  return res.json(wrapRes({
+    user: { username: user.username },
     token,
-  });
+  }));
 });
 
 module.exports = router;

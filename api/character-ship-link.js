@@ -2,12 +2,13 @@ const express = require('express');
 
 const { models } = require('../model');
 
+const { wrapRes } = require('../utils/request');
+
 const router = express.Router();
 
 router.get('/character-ship-link', async (req, res) => {
   const { params } = req;
 
-  console.log('params is', params);
   const characterShipLink = await models.CharacterShipLink
     .find(params)
     .populate('ship')
@@ -15,17 +16,21 @@ router.get('/character-ship-link', async (req, res) => {
     .populate('dest')
     .exec();
 
-  res.json(characterShipLink);
+  res.json(wrapRes(characterShipLink));
 });
 
-router.post('/character-ship-link', async (req, res) => {
+router.post('/character-ship-link', async (req, res, next) => {
   const { body } = req;
 
   const characterShipLink = new models.CharacterShipLink(body);
 
-  await characterShipLink.save();
+  try {
+    await characterShipLink.save();
 
-  res.send(req.body);
+    res.send(req.body);
+  } catch (err) {
+    next(err);
+  }
 });
 
 router.delete('/character-ship-link/:id', (req, res, next) => {

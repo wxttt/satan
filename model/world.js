@@ -1,24 +1,20 @@
 const mongoose = require('mongoose');
 
-const characterSchema = new mongoose.Schema(
+const schema = new mongoose.Schema(
   {
-    number: {
-      type: Number,
-      // unique: true,
-      required: false,
-    },
-    username: {
+    name: {
       type: String,
-      unique: true,
       required: true,
     },
-    avatar: {
+    logo: {
       type: String,
       required: false,
       default: 'https://img.qingchengfit.cn/77cab0ecba74f820e459c3bc9958084f.jpeg',
     },
-    camp: {
-      type: mongoose.Schema.Types.ObjectId, ref: 'Camp',
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
     },
     description: {
       type: String,
@@ -29,6 +25,6 @@ const characterSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-const Character = mongoose.model('Character', characterSchema);
+const Character = mongoose.model('world', schema);
 
 module.exports = Character;

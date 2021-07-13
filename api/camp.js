@@ -2,12 +2,14 @@ const express = require('express');
 
 const { models } = require('../model');
 
+const { wrapRes } = require('../utils/request');
+
 const router = express.Router();
 
 router.get('/camp', async (req, res) => {
   const campList = await models.Camp.find();
 
-  res.json(campList);
+  res.json(wrapRes(campList));
 });
 
 router.post('/camp', async (req, res) => {

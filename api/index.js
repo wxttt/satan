@@ -3,6 +3,7 @@ const characterShip = require('./character-ship');
 const characterShipLink = require('./character-ship-link');
 const camp = require('./camp');
 const user = require('./user');
+const world = require('./world');
 
 module.exports = {
   character,
@@ -10,4 +11,5 @@ module.exports = {
   characterShipLink,
   camp,
   user,
+  world,
 };

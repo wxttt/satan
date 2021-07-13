@@ -1,4 +1,4 @@
-exports.wrapRes = (data, code, msg) => ({
+exports.wrapRes = (data, code = 200, msg) => ({
   code,
   msg: msg || 'success',
   data,

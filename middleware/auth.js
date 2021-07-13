@@ -12,12 +12,11 @@ module.exports = async (req, res, next) => {
     // 获取用户id
     const { id } = tokenData;
 
-    req.user = await models.User.find({ _id: id });
+    req.user = await models.User.findOne({ _id: id });
 
     next();
   } catch (e) {
-    console.error(e);
-    res.status(404).json({
+    res.status(403).json({
       message: 'auth failed',
     });
   }

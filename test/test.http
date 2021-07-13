@@ -24,6 +24,27 @@ post {{url}}/user/login
   "password": "123456"
 }
 
+### 创建world
+post {{url}}/world
+{{json}}
+
+{
+  "name": "JoJo的奇妙冒险",
+  "logo": "https://img.qingchengfit.cn/074d2579e170c92144ee8a28634dc0a8.jpeg",
+  "description": "人类的历史就是勇气的历史，人类的赞歌就是勇气的赞歌"
+}
+
+### 删除世界
+delete {{url}}/world/60ec174712898cfd8fcee3fb
+
+### 创建flomo
+post https://flomoapp.com/iwh/MTI2MTA1/240a35956476598c0179474b47561b59/
+{{json}}
+
+{
+  "content": "#增广贤文 合理可作，小利莫争。牡丹花好空入目，枣花虽小结实成。"
+}
+
 ### 用户信息
 get {{url}}/user/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZDE5NzY1MWZjMTgwMDNmOGU1YTliOSIsImlhdCI6MTYyNDM0OTI3NH0.MBUR3g8XpIfwkJDKjqgYKfDyMwQ_iTBnRvccEt416HQ
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZDE5NzY1MWZjMTgwMDNmOGU1YTliOSIsImlhdCI6MTYyNDM0OTI3NH0.MBUR3g8XpIfwkJDKjqgYKfDyMwQ_iTBnRvccEt416HQ

@@ -2,12 +2,14 @@ const express = require('express');
 
 const { models } = require('../model');
 
+const { wrapRes } = require('../utils/request');
+
 const router = express.Router();
 
 router.get('/character', async (req, res) => {
   const characterList = await models.Character.find().populate('camp');
 
-  res.json(characterList);
+  res.json(wrapRes(characterList));
 });
 
 router.post('/character', async (req, res, next) => {

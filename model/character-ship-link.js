@@ -6,7 +6,6 @@ const characterShipLinkSchema = new mongoose.Schema(
     ship: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'CharacterShip',
-      unique: true,
       required: true,
     },
     origin: {

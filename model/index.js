@@ -5,6 +5,7 @@ const CharacterShip = require('./character-ship');
 const CharacterShipLink = require('./character-ship-link');
 const Camp = require('./camp');
 const User = require('./user');
+const World = require('./world');
 
 const dbPath = 'mongodb://localhost:27017/test';
 const dbOption = { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true };
@@ -17,6 +18,7 @@ const models = {
   CharacterShip,
   CharacterShipLink,
   User,
+  World,
 };
 
 module.exports = {

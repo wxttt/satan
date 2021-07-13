@@ -8,7 +8,7 @@ const { connectDb } = require('./model');
 connectDb();
 
 const app = express();
-const port = 3000;
+const port = app.get('env') === 'test' ? 0 : 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -23,22 +23,27 @@ app.use('/api', api.characterShip);
 app.use('/api', api.characterShipLink);
 app.use('/api', api.user);
 app.use('/api', api.camp);
+app.use('/api', api.world);
 
 app.use((req, res, next) => {
-  console.log('======== reach 404 =======')
-  next(createError(404));
+  next(createError(404, 'source not exist'));
 });
 
 // app.use((err, req, res, next) => {
 //   // set locals, only providing error in development
 //   res.locals.message = err.message;
 //   res.locals.error = req.app.get('env') === 'development' ? err : {};
-//   console.log('error', err);
 //   // render the error page
+//   console.log('req.app.get ', req.app.get('env'));
 //   res.status(err.status || 500);
-//   res.render('err');
+//   return res.render('err');
 // });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+module.exports = {
+  app,
+  server,
+};
