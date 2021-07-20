@@ -6,18 +6,28 @@ const { wrapRes } = require('../utils/request');
 
 const router = express.Router();
 
-router.get('/camp', async (req, res) => {
-  const campList = await models.Camp.find();
+router.get('/camp', async (req, res, next) => {
+  try {
+    const campList = await models.Camp
+      .find(req.query)
+      .populate('world');
 
-  res.json(wrapRes(campList));
+    res.json(wrapRes(campList));
+  } catch (e) {
+    next(e);
+  }
 });
 
-router.post('/camp', async (req, res) => {
-  const camp = new models.Camp(req.body);
+router.post('/camp', async (req, res, next) => {
+  try {
+    const camp = new models.Camp(req.body);
 
-  await camp.save();
+    await camp.save();
 
-  res.send(req.body);
+    res.send(req.body);
+  } catch (e) {
+    next(e);
+  }
 });
 
 router.delete('/camp/:id', (req, res, next) => {

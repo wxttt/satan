@@ -25,6 +25,6 @@ const schema = new mongoose.Schema(
   { timestamps: true },
 );
 
-const Character = mongoose.model('world', schema);
+const Character = mongoose.model('World', schema);
 
 module.exports = Character;

@@ -7,6 +7,11 @@ const campSchema = new mongoose.Schema(
       unique: true,
       required: true,
     },
+    world: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'World',
+      required: true,
+    },
     logo: {
       type: String,
       required: false,

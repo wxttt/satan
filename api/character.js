@@ -6,10 +6,14 @@ const { wrapRes } = require('../utils/request');
 
 const router = express.Router();
 
-router.get('/character', async (req, res) => {
-  const characterList = await models.Character.find().populate('camp');
+router.get('/character', async (req, res, next) => {
+  try {
+    const characterList = await models.Character.find(req.query).populate('camp');
 
-  res.json(wrapRes(characterList));
+    return res.json(wrapRes(characterList));
+  } catch (err) {
+    return next(err);
+  }
 });
 
 router.post('/character', async (req, res, next) => {

@@ -7,10 +7,11 @@ const Camp = require('./camp');
 const User = require('./user');
 const World = require('./world');
 
-const dbPath = 'mongodb://localhost:27017/test';
+const { DB_PATH } = require('../config');
+
 const dbOption = { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true };
 
-const connectDb = () => mongoose.connect(dbPath, dbOption);
+const connectDb = () => mongoose.connect(DB_PATH, dbOption);
 
 const models = {
   Character,

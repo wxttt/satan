@@ -6,17 +6,20 @@ const { wrapRes } = require('../utils/request');
 
 const router = express.Router();
 
-router.get('/character-ship-link', async (req, res) => {
-  const { params } = req;
+router.get('/character-ship-link', async (req, res, next) => {
+  const { query } = req;
+  try {
+    const characterShipLink = await models.CharacterShipLink
+      .find(query)
+      .populate('ship')
+      .populate('origin')
+      .populate('dest')
+      .exec();
 
-  const characterShipLink = await models.CharacterShipLink
-    .find(params)
-    .populate('ship')
-    .populate('origin')
-    .populate('dest')
-    .exec();
-
-  res.json(wrapRes(characterShipLink));
+    res.json(wrapRes(characterShipLink));
+  } catch (e) {
+    next(e);
+  }
 });
 
 router.post('/character-ship-link', async (req, res, next) => {

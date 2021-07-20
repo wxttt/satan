@@ -6,18 +6,26 @@ const { wrapRes } = require('../utils/request');
 
 const router = express.Router();
 
-router.get('/character-ship', async (req, res) => {
-  const characterShipList = await models.CharacterShip.find();
+router.get('/character-ship', async (req, res, next) => {
+  try {
+    const characterShipList = await models.CharacterShip.find(req.query);
 
-  return res.json(wrapRes(characterShipList));
+    return res.json(wrapRes(characterShipList));
+  } catch (e) {
+    return next(e);
+  }
 });
 
-router.post('/character-ship', async (req, res) => {
-  const characterShip = new models.CharacterShip(req.body);
+router.post('/character-ship', async (req, res, next) => {
+  try {
+    const characterShip = new models.CharacterShip(req.body);
 
-  await characterShip.save();
+    await characterShip.save();
 
-  return res.send(req.body);
+    return res.send(req.body);
+  } catch (e) {
+    return next(e);
+  }
 });
 
 router.delete('/character-ship/:id', (req, res, next) => {

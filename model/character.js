@@ -4,12 +4,16 @@ const characterSchema = new mongoose.Schema(
   {
     number: {
       type: Number,
-      // unique: true,
       required: false,
     },
     username: {
       type: String,
       unique: true,
+      required: true,
+    },
+    world: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'World',
       required: true,
     },
     avatar: {

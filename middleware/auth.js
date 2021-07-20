@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const { models } = require('../model');
-const { AUTH_SECRET } = require('../secret');
+const { AUTH_SECRET } = require('../config');
 
 module.exports = async (req, res, next) => {
   // 获取客户端请求头的token

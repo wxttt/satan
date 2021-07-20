@@ -8,6 +8,11 @@ const characterShipLinkSchema = new mongoose.Schema(
       ref: 'CharacterShip',
       required: true,
     },
+    world: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'World',
+      required: true,
+    },
     origin: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Character',
