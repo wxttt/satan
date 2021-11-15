@@ -45,13 +45,13 @@ router.delete('/character-ship-link/:id', (req, res, next) => {
   });
 });
 
-router.put('/character-ship-link/:id', (req, res, next) => {
-  models.CharacterShipLink.updateOne({ _id: req.params.id }, res.body, (err) => {
-    if (!err) {
-      res.send('success');
-    }
+router.put('/character-ship-link/:id', async (req, res, next) => {
+  try {
+    const result = await models.CharacterShipLink.updateOne({ _id: req.params.id }, req.body);
+    res.json(wrapRes(result));
+  } catch (err) {
     next(err);
-  });
+  }
 });
 
 module.exports = router;

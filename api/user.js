@@ -41,7 +41,7 @@ router.post('/user/login', async (req, res) => {
   });
   if (!user) {
     return res.status(422).json({
-      message: '用户名不存在',
+      message: '用户不存在',
     });
   }
   // 2.用户如果存在，则看密码是否正确

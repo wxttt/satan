@@ -1,6 +1,7 @@
 const express = require('express');
 
 const auth = require('../middleware/auth');
+const worldPermission = require('../middleware/world_permission');
 
 const { models } = require('../model');
 
@@ -41,7 +42,7 @@ router.put('/world/:id', (req, res, next) => {
   });
 });
 
-router.get('/world/:id', (req, res, next) => {
+router.get('/world/:id', auth, worldPermission, (req, res, next) => {
   models.World.findById(req.params.id, (err, world) => {
     if (!err) {
       return res.json(world);
@@ -51,7 +52,7 @@ router.get('/world/:id', (req, res, next) => {
   });
 });
 
-router.delete('/world/:id', (req, res, next) => {
+router.delete('/world/:id', auth, worldPermission, (req, res, next) => {
   models.World.deleteOne({ _id: req.params.id }, (err) => {
     if (!err) {
       return res.send('success');

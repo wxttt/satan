@@ -4,9 +4,12 @@ const { models } = require('../model');
 
 const { wrapRes } = require('../utils/request');
 
+const auth = require('../middleware/auth');
+const worldPermission = require('../middleware/world_permission');
+
 const router = express.Router();
 
-router.get('/camp', async (req, res, next) => {
+router.get('/camp', auth, worldPermission, async (req, res, next) => {
   try {
     const campList = await models.Camp
       .find(req.query)
@@ -18,7 +21,7 @@ router.get('/camp', async (req, res, next) => {
   }
 });
 
-router.post('/camp', async (req, res, next) => {
+router.post('/camp', auth, worldPermission, async (req, res, next) => {
   try {
     const camp = new models.Camp(req.body);
 
@@ -30,26 +33,22 @@ router.post('/camp', async (req, res, next) => {
   }
 });
 
-router.delete('/camp/:id', (req, res, next) => {
-  models.Camp.deleteOne({ _id: req.params.id }, (err) => {
-    if (!err) {
-      res.send('success');
-    }
+router.delete('/camp/:id', auth, worldPermission, async (req, res, next) => {
+  try {
+    await models.Camp.deleteOne({ _id: req.params.id });
+    res.json(wrapRes({}));
+  } catch (err) {
     next(err);
-  });
+  }
 });
 
-router.put('/camp/:id', (req, res, next) => {
-  models.Camp.updateOne({ _id: req.params.id }, req.body, (err) => {
-    if (!err) {
-      res.send('success');
-    }
+router.put('/camp/:id', auth, worldPermission, async (req, res, next) => {
+  try {
+    await models.Camp.updateOne({ _id: req.params.id }, req.body);
+    res.json(wrapRes({}));
+  } catch (err) {
     next(err);
-  });
+  }
 });
-
-// router.get('/camp/:id', (req, res) => {
-
-// });
 
 module.exports = router;

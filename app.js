@@ -24,10 +24,20 @@ app.use('/api', api.characterShipLink);
 app.use('/api', api.user);
 app.use('/api', api.camp);
 app.use('/api', api.world);
+app.use('/api', api.upyunSignature);
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;
-  res.status(err.status || 500).json({ status: 'error', code: status });
+  const isDev = req.app.get('env') === 'development';
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = isDev ? err : {};
+  // render the error page
+  if (isDev) {
+    res.status(status).render('err');
+  } else {
+    res.status(status).json({ status: 'error', code: status });
+  }
 });
 
 app.use((req, res, next) => {

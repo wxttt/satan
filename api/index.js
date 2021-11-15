@@ -4,6 +4,7 @@ const characterShipLink = require('./character-ship-link');
 const camp = require('./camp');
 const user = require('./user');
 const world = require('./world');
+const upyunSignature = require('./upyun-signature');
 
 module.exports = {
   character,
@@ -12,4 +13,5 @@ module.exports = {
   camp,
   user,
   world,
+  upyunSignature,
 };
